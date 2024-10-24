@@ -18,6 +18,10 @@ module.exports = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+			  // add custom colors
+			SoulBlue: '#01406C',
+			SoulLightBlue: '#A4B2BC',
+			SoulOrange: '#FFA500',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
