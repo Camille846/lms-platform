@@ -1,7 +1,11 @@
 import {Sidebar} from './_components/sidebar';
 import {Navbar} from './_components/navbar';
 import {ReactNode} from 'react';
-const DashboardLayout = ({ children } : { children: ReactNode }) => {
+import { auth } from '@clerk/nextjs/server'
+
+const DashboardLayout = async ({ children } : { children: ReactNode }) => {
+    const { userId, redirectToSignIn } = await auth()
+    if (!userId) return redirectToSignIn()
     return (
         <div className="h-full flex">
             <div className="h-[80px] md:pl-56 fixed inset-y-0 w-full z-50">

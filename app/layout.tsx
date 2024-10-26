@@ -1,8 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import {Inter, Poppins} from 'next/font/google'
-import { ClerkProvider} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import {ToasterProvider} from "@/components/providers/toaster-provider";
+
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -20,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider afterSignOutUrl={"/sign-in"} signInFallbackRedirectUrl={"/"}>
     <html lang="en">
       <body className={poppins.className}>
       <ToasterProvider />

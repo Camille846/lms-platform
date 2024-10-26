@@ -38,6 +38,7 @@ const createPage = () => {
         try {
             const response = await axios.post("/api/training", values);
             router.push(`/admin/training/${response.data.id}`);
+            toast.success("Training created successfully!");
         } catch (error) {
             toast.error("Something went wrong. Please try again.");
         }

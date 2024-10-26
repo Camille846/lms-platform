@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { IoLogOut } from "react-icons/io5";
 import Link from "next/link";
 import { useClerk } from '@clerk/nextjs';
+import {SignOutButton} from "@/app/(dashboard)/_components/signOutButton";
 
 export const NavbarRoutes = () => {
     const pathname = usePathname();
@@ -35,7 +36,10 @@ export const NavbarRoutes = () => {
                     </Button>
                 </Link>
             )}
-            <UserButton />
+            <UserButton
+
+            />
+
         </div>
     );
 };
