@@ -8,6 +8,7 @@ import {DescriptionForm} from "./_components/description-form";
 import {Description} from "@radix-ui/react-dialog";
 import Image from "next/image";
 import ImageForm from "@/app/(dashboard)/(routes)/admin/training/[trainingId]/_components/image-form";
+import CategoryForm from "@/app/(dashboard)/(routes)/admin/training/[trainingId]/_components/category-form";
 
 const TrainingIdPage = async ({
     params
@@ -23,6 +24,12 @@ const TrainingIdPage = async ({
     const training = await db.training.findUnique({
         where: {
             id: params.trainingId,
+        },
+    });
+
+    const categories = await db.category.findMany({
+        orderBy: {
+            name: 'asc',
         },
     });
 
@@ -66,6 +73,13 @@ const TrainingIdPage = async ({
                         trainingId={training.id}
                     />
                     <ImageForm initialData={training} trainingId={training.id} />
+                    <CategoryForm
+                        initialData={training}
+                        trainingId={training.id}
+                        options={categories.map((category) => ({
+                        label: category.name,
+                        value: category.id,
+                    }))} />
                 </div>
             </div>
         </div>
