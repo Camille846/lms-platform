@@ -62,7 +62,7 @@ const TrainingIdPage = async ({
                         trainingId={training.id}
                     />
                     <DescriptionForm
-                        initialData={training}
+                        initialData={{ ...training, description: training.description || '' }}
                         trainingId={training.id}
                     />
                     <ImageForm initialData={training} trainingId={training.id} />

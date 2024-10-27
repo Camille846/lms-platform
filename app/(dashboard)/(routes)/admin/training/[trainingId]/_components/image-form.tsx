@@ -146,7 +146,7 @@ const ImageForm = ({ initialData, trainingId }: ImageFormProps) => {
                 </div>
             )}
             {!isEditing && initialData.imageUrl && (
-                <div className="relative aspect-video mt-2 h-60">
+                <div className="relative aspect-video mt-2 h-60 max-w-sm">
                     <img
                         src={initialData.imageUrl}
                         alt="Training Image"
