@@ -6,6 +6,8 @@ import {IconBadge} from "@/components/icon-badge";
 import {TitleForm} from "./_components/title-form";
 import {DescriptionForm} from "./_components/description-form";
 import {Description} from "@radix-ui/react-dialog";
+import Image from "next/image";
+import ImageForm from "@/app/(dashboard)/(routes)/admin/training/[trainingId]/_components/image-form";
 
 const TrainingIdPage = async ({
     params
@@ -63,6 +65,7 @@ const TrainingIdPage = async ({
                         initialData={training}
                         trainingId={training.id}
                     />
+                    <ImageForm initialData={training} trainingId={training.id} />
                 </div>
             </div>
         </div>
