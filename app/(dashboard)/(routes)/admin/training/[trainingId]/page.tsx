@@ -4,6 +4,8 @@ import {redirect} from "next/navigation";
 import {LayoutDashboard} from "lucide-react";
 import {IconBadge} from "@/components/icon-badge";
 import {TitleForm} from "./_components/title-form";
+import {DescriptionForm} from "./_components/description-form";
+import {Description} from "@radix-ui/react-dialog";
 
 const TrainingIdPage = async ({
     params
@@ -54,6 +56,10 @@ const TrainingIdPage = async ({
                         <h2 className="text-xl font-medium text-SoulBlue">Make it custom</h2>
                     </div>
                     <TitleForm
+                        initialData={training}
+                        trainingId={training.id}
+                    />
+                    <DescriptionForm
                         initialData={training}
                         trainingId={training.id}
                     />
