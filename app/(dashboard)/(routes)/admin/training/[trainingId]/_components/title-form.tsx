@@ -31,7 +31,7 @@ interface TitleFormProps {
 }
 
 const formSchema = z.object({
-    title: z.string().min(3, { message: "Title is required and must be at least 3 characters" }),
+    title: z.string().min(3, { message: "Título é obrigatório e deve ter pelo menos 3 caracteres" }),
 });
 
 export const TitleForm = ({ initialData, trainingId } : TitleFormProps) => {
@@ -47,11 +47,11 @@ export const TitleForm = ({ initialData, trainingId } : TitleFormProps) => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             await axios.patch(`/api/training/${trainingId}`, values);
-            toast.success("Title updated");
+            toast.success("Título atualizado com sucesso");
             toggleEditing();
             router.refresh();
         } catch (error) {
-            toast.error("Failed to update title");
+            toast.error("Falha ao atualizar título");
             console.error(error);
         }
     }
@@ -67,7 +67,7 @@ export const TitleForm = ({ initialData, trainingId } : TitleFormProps) => {
                         </span>
                     </div>
                     <p className="text-lg font-medium">
-                        Training name
+                        Título
                         <span className="text-red-500">*</span>
                     </p>
                 </div>
@@ -75,12 +75,12 @@ export const TitleForm = ({ initialData, trainingId } : TitleFormProps) => {
                     {isEditing ? (
                         <>
                             <MdOutlineCancel className="h-4 w-4"/>
-                            Cancel
+                            Cancelar
                         </>
                     ) : (
                         <>
                             <FaPencilAlt className="h-4 w-4"/>
-                            Edit
+                            Editar
                         </>
                     )}
                 </Button>
@@ -109,7 +109,7 @@ export const TitleForm = ({ initialData, trainingId } : TitleFormProps) => {
                         />
                         <div className="flex items-center gap-x-2 mt-4">
                             <Button disabled={!isValid || isSubmitting} type="submit" className="bg-SoulBlue hover:bg-[#F45A2B] hover:text-white mt-4">
-                                Save Changes
+                                Salvar alterações
                             </Button>
                         </div>
                     </form>

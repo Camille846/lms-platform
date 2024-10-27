@@ -30,7 +30,7 @@ interface DescriptionFormProps {
 }
 
 const formSchema = z.object({
-    description: z.string().min(3, { message: "Description is required and must be at least 3 characters" }),
+    description: z.string().min(3, { message: "Descrição é obrigatória e deve ter pelo menos 3 caracteres" }),
 });
 
 export const DescriptionForm = ({ initialData, trainingId } : DescriptionFormProps) => {
@@ -46,11 +46,11 @@ export const DescriptionForm = ({ initialData, trainingId } : DescriptionFormPro
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             await axios.patch(`/api/training/${trainingId}`, values);
-            toast.success("Description updated");
+            toast.success("Descrição atualizada com sucesso");
             toggleEditing();
             router.refresh();
         } catch (error) {
-            toast.error("Failed to update description");
+            toast.error("Falha ao atualizar descrição");
             console.error(error);
         }
     }
@@ -66,7 +66,7 @@ export const DescriptionForm = ({ initialData, trainingId } : DescriptionFormPro
                         </span>
                     </div>
                     <p className="text-lg font-medium">
-                        Description
+                        Descrição
                         <span className="text-red-500">*</span>
                     </p>
                 </div>
@@ -74,12 +74,12 @@ export const DescriptionForm = ({ initialData, trainingId } : DescriptionFormPro
                     {isEditing ? (
                         <>
                             <MdOutlineCancel className="h-4 w-4"/>
-                            Cancel
+                            Cancelar
                         </>
                     ) : (
                         <>
                             <FaPencilAlt className="h-4 w-4"/>
-                            Edit
+                            Editar
                         </>
                     )}
                 </Button>
@@ -108,7 +108,7 @@ export const DescriptionForm = ({ initialData, trainingId } : DescriptionFormPro
                         />
                         <div className="flex items-center gap-x-2 mt-4">
                             <Button disabled={!isValid || isSubmitting} type="submit" className="bg-SoulBlue hover:bg-[#F45A2B] hover:text-white mt-4">
-                                Save Changes
+                                Salvar alterações
                             </Button>
                         </div>
                     </form>

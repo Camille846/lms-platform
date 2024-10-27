@@ -31,7 +31,7 @@ interface ImageFormProps {
 
 const formSchema = z.object({
     imageUrl: z.string().min(1, {
-        message: "Image is required",
+        message: "Imagem é obrigatória",
     }),
 });
 
@@ -52,11 +52,11 @@ const ImageForm = ({ initialData, trainingId }: ImageFormProps) => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             await axios.patch(`/api/training/${trainingId}`, values);
-            toast.success("Image Updated!");
+            toast.success("Imagem atualizada com sucesso");
             toggleEdit();
             router.refresh();
         } catch (error) {
-            toast.error("Something went wrong");
+            toast.error("Falha ao atualizar imagem");
         }
     };
 
@@ -71,7 +71,7 @@ const ImageForm = ({ initialData, trainingId }: ImageFormProps) => {
                         </span>
                     </div>
                     <p className="text-lg font-medium">
-                        Image
+                        Imagem
                         <span className="text-red-500">*</span>
                     </p>
                 </div>
@@ -84,19 +84,19 @@ const ImageForm = ({ initialData, trainingId }: ImageFormProps) => {
                     {isEditing && (
                         <>
                             <MdOutlineCancel className="h-4 w-4" />
-                            Cancel
+                            Cancelar
                         </>
                     )}
                     {!isEditing && !initialData.imageUrl && (
                         <>
                             <BiSolidImageAdd className="h-4 w-4"/>
-                            Add Image
+                            Adicionar
                         </>
                     )}
                     {!isEditing && initialData.imageUrl && (
                         <>
                             <MdOutlineImagesearchRoller className="h-4 w-4"/>
-                            Edit Image
+                            Editar
                         </>
                     )}
                 </Button>
@@ -135,13 +135,13 @@ const ImageForm = ({ initialData, trainingId }: ImageFormProps) => {
                                             <BiLoader className="mr-1 animate-spin" />
                                         ))
                                     }
-                                    Save
+                                    Salvar alterações
                                 </Button>
                             </div>
                         </form>
                     </Form>
                     <span className="text-xs text-muted-foreground mt-4">
-                        16:9 aspect ratio recommended
+                        Proporção de aspecto 16:9 recomendada
                     </span>
                 </div>
             )}
@@ -151,7 +151,6 @@ const ImageForm = ({ initialData, trainingId }: ImageFormProps) => {
                         src={initialData.imageUrl}
                         alt="Training Image"
                         className="rounded-xl object-cover object-center w-full h-full"
-
                     />
                 </div>
             )}

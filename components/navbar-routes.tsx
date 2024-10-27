@@ -23,7 +23,7 @@ export const NavbarRoutes = () => {
                     className="flex items-center gap-x-2 bg-white border-2 border-white text-[#A4B2BC] text-sm font-[500] pl-3 pr-3 transition-colors duration-200 ease-in-out"
                 >
                     <IoLogOut size={24} />
-                    <span>Exit</span>
+                    <span>Voltar</span>
                 </Button>
                 </Link>
             ) : (

@@ -47,15 +47,15 @@ const TrainingIdPage = async ({
         <div className={'p-6'}>
             <div className="flex justify-between items-center">
                 <div className="flex flex-col gap-y-2">
-                    <h1 className="text-2xl font-medium">Let's create your training!</h1>
-                    <span className="text-gray-500 text-sm">Complete all fields {completionText}</span>
+                    <h1 className="text-2xl font-medium">Vamos criar um novo Training!</h1>
+                    <span className="text-gray-500 text-sm">Complete todos os campos {completionText}</span>
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
                 <div>
                     <div className="flex items-center gap-x-2">
                         <IconBadge icon={LayoutDashboard} size="sm" />
-                        <h2 className="text-xl font-medium text-SoulBlue">Make it custom</h2>
+                        <h2 className="text-xl font-medium text-SoulBlue">Customize seu Training</h2>
                     </div>
                     <TitleForm
                         initialData={training}

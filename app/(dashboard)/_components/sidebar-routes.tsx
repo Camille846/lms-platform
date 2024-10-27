@@ -13,8 +13,8 @@ const playerRoutes = [
 ]
 
 const adminRoutes = [
-    { icon: TfiLayoutAccordionList, name: "My Training", href: "/admin/modules" },
-    { icon: IoBarChart, name: "Analytics", href: "/admin/analytics" },
+    { icon: TfiLayoutAccordionList, name: "Meu Training", href: "/admin/modules" },
+    { icon: IoBarChart, name: "Estatística", href: "/admin/analytics" },
 ]
 
 export const SidebarRoutes = () => {
