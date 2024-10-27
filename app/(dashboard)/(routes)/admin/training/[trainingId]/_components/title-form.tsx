@@ -17,6 +17,11 @@ import {FaPencil} from "react-icons/fa6";
 import {useState} from "react";
 import {toast} from "react-hot-toast";
 import {useRouter} from "next/navigation";
+import {BiLoader} from "react-icons/bi";
+import {MdOutlineCancel} from "react-icons/md";
+import {FaPencilAlt} from "react-icons/fa";
+import {AiFillBook} from "react-icons/ai";
+import {IoBook} from "react-icons/io5";
 
 interface TitleFormProps {
     initialData: {
@@ -26,7 +31,7 @@ interface TitleFormProps {
 }
 
 const formSchema = z.object({
-    title: z.string().min(1, { message: "Title is required", }),
+    title: z.string().min(3, { message: "Title is required and must be at least 3 characters" }),
 });
 
 export const TitleForm = ({ initialData, trainingId } : TitleFormProps) => {
@@ -52,58 +57,66 @@ export const TitleForm = ({ initialData, trainingId } : TitleFormProps) => {
     }
 
     return (
-        <div className="mt-6 border border-[#F1F1F1] bg-slate-100 rounded-md p-4 w-full">
-            <div className="flex items-center justify-between font-medium">
-                <h3 className="text-lg">Title</h3>
-                <Button
-                    onClick={toggleEditing}
-                    variant="ghost"
-                    size="sm"
-                    form="title-form"
-                >
+        <div className="order bg-accent/30 border-2 border-[#F1F1F1] rounded-lg p-4 mt-4">
+            <div className="font-medium text-lg flex items-start justify-between gap-10 mb-2">
+                <div className="flex items-center justify-center gap-2">
+                    {isSubmitting && <BiLoader className="animate-spin w-5 h-5"/>}
+                    <div className="text-lg flex gap-2 items-center">
+                        <span className="bg-[#D1E3EE] p-2 rounded-2xl">
+                            <IoBook className="h-4 w-4 text-SoulBlue"/>
+                        </span>
+                    </div>
+                    <p className="text-lg font-medium">
+                        Training name
+                        <span className="text-red-500">*</span>
+                    </p>
+                </div>
+                <Button variant={"ghost"} onClick={toggleEditing} className="text-sm hover:text-[#FFA500] text-[#F45A2B] transition-colors duration-200 ease-in-out">
                     {isEditing ? (
-                        <>Cancel</>
+                        <>
+                            <MdOutlineCancel className="h-4 w-4"/>
+                            Cancel
+                        </>
                     ) : (
                         <>
-                            <FaPencil className="h-4 w-4" />
-                            Edit title
+                            <FaPencilAlt className="h-4 w-4"/>
+                            Edit
                         </>
                     )}
                 </Button>
             </div>
             {isEditing ? (
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} id="title-form" className="mt-4 space-y-4">
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-2 mt-3"
+                    >
                         <FormField
-                            name={"title"}
                             control={form.control}
-                            render={({ field }) => (
-                                <FormItem>
+                            name="title"
+                            render={({field}) => (
+                                <FormItem className="w-full">
                                     <FormControl>
                                         <Input
-                                            {...field}
-                                            placeholder="e.g. 'How to plan a mentoring session'"
-                                            type="text"
                                             disabled={isSubmitting}
+                                            placeholder="e.g. 'How to plan a mentoring session'"
+                                            {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage/>
                                 </FormItem>
                             )}
                         />
-                        <div className="flex items-center gap-x-2">
-                            <Button
-                                type="submit"
-                                disabled={!isValid || isSubmitting}
-                            >
-                                Save
+                        <div className="flex items-center gap-x-2 mt-4">
+                            <Button disabled={!isValid || isSubmitting} type="submit" className="bg-SoulBlue hover:bg-[#F45A2B] hover:text-white mt-4">
+                                Save Changes
                             </Button>
                         </div>
                     </form>
                 </Form>
             ) : (
-                <div className="mt-2">
-                    <p>{initialData.title}</p>
+                <div className="mt-0 text-sm">
+                    <p className="text-base mb-1">{initialData.title}</p>
                 </div>
             )}
         </div>

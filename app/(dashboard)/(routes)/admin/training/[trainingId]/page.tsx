@@ -51,7 +51,7 @@ const TrainingIdPage = async ({
                 <div>
                     <div className="flex items-center gap-x-2">
                         <IconBadge icon={LayoutDashboard} size="sm" />
-                        <h2 className="text-xl font-medium">Make it custom</h2>
+                        <h2 className="text-xl font-medium text-SoulBlue">Make it custom</h2>
                     </div>
                     <TitleForm
                         initialData={training}
