@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 
 export async function POST (req: Request) {
     try {
-        const { userId } = auth();
+        const { userId } = await auth();
         const { title } = await req.json();
 
         if (!userId) {

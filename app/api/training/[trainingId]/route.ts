@@ -7,7 +7,7 @@ export async function PATCH (
     { params } : { params: { trainingId: string } }
 ) {
     try {
-        const { userId } = auth();
+        const { userId } = await auth();
         const { trainingId } = params;
         const values = await req.json();
 

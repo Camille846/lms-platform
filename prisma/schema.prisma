@@ -15,17 +15,17 @@ datasource db {
 }
 
 model Training {
-  id          String       @id @default(uuid())
+  id          String    @id @default(uuid())
   userId      String
-  title       String       @db.Text
-  description String?      @db.Text
-  imageUrl    String?      @db.Text
-  isPublished Boolean      @default(false)
+  title       String    @db.Text
+  description String?   @db.Text
+  imageUrl    String?   @db.Text
+  isPublished Boolean   @default(false)
   categoryId  String?
-  category    Category?    @relation(fields: [categoryId], references: [id])
-  attachments Attachment[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  category    Category? @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  chapters    Chapter[]
 
   @@index([categoryId])
 }
@@ -36,14 +36,37 @@ model Category {
   trainings Training[]
 }
 
-model Attachment {
-  id         String   @id @default(uuid())
-  name       String
-  url        String   @db.Text
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+model Chapter {
+  id          String  @id @default(uuid()) @map("_id")
+  title       String
+  description String? @db.Text
+  videoUrl    String? @db.Text
+  position    Int
+  isPublished Boolean @default(false)
+
   trainingId String
   training   Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
 
+  userProgress UserProgress[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([trainingId])
+}
+
+model UserProgress {
+  id     String @id @default(uuid()) @map("_id")
+  userId String
+
+  chapterId String
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  isCompleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, chapterId])
+  @@index([chapterId])
 }

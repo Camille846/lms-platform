@@ -7,24 +7,30 @@ import {TitleForm} from "./_components/title-form";
 import {DescriptionForm} from "./_components/description-form";
 import {Description} from "@radix-ui/react-dialog";
 import Image from "next/image";
-import ImageForm from "@/app/(dashboard)/(routes)/admin/training/[trainingId]/_components/image-form";
-import CategoryForm from "@/app/(dashboard)/(routes)/admin/training/[trainingId]/_components/category-form";
+import ImageForm from "./_components/image-form";
+import CategoryForm from "./_components/category-form";
+import {FaListCheck} from "react-icons/fa6";
+import ChaptersForm from "./_components/chapters-form";
 
 const TrainingIdPage = async ({
     params
 } : {
     params: { trainingId: string }
 }) => {
-    const { userId } = auth();
-
+    params = await params
+    const { userId } = await auth();
     if (!userId) {
         return redirect('/');
     }
 
+    console.log(userId)
     const training = await db.training.findUnique({
         where: {
             id: params.trainingId,
         },
+        include: {
+            chapters: true,
+        }
     });
 
     const categories = await db.category.findMany({
@@ -42,6 +48,7 @@ const TrainingIdPage = async ({
         training.description,
         training.imageUrl,
         training.categoryId,
+        training.chapters.some((chapter) => chapter.isPublished),
     ];
 
     // Se algum campo não existir, ele retorna como false e não é contabilizado
@@ -58,10 +65,10 @@ const TrainingIdPage = async ({
                     <span className="text-gray-500 text-sm">Complete todos os campos {completionText}</span>
                 </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 mt-12 gap-6 w-full">
                 <div>
                     <div className="flex items-center gap-x-2">
-                        <IconBadge icon={LayoutDashboard} size="sm" />
+                        <IconBadge icon={LayoutDashboard} size="sm"/>
                         <h2 className="text-xl font-medium text-SoulBlue">Customize seu Training</h2>
                     </div>
                     <TitleForm
@@ -69,17 +76,28 @@ const TrainingIdPage = async ({
                         trainingId={training.id}
                     />
                     <DescriptionForm
-                        initialData={{ ...training, description: training.description || '' }}
+                        initialData={{...training, description: training.description || ''}}
                         trainingId={training.id}
                     />
-                    <ImageForm initialData={training} trainingId={training.id} />
+                    <ImageForm initialData={training} trainingId={training.id}/>
                     <CategoryForm
                         initialData={training}
                         trainingId={training.id}
                         options={categories.map((category) => ({
-                        label: category.name,
-                        value: category.id,
-                    }))} />
+                            label: category.name,
+                            value: category.id,
+                        }))}/>
+                </div>
+                <div className="space-y-6">
+                    <div className="flex items-center gap-x-2 rounded-2xl">
+                        <div className="text-lg flex gap-2 items-center">
+                            <span className="bg-[#D1E3EE] p-2 rounded-2xl">
+                                <FaListCheck className="h-4 w-4 text-sky-700"/>
+                            </span>
+                        </div>
+                        <h2 className="text-xl text-SoulBlue font-medium">Módulos</h2>
+                    </div>
+                    <ChaptersForm initialData={training} trainingId={training.id}/>
                 </div>
             </div>
         </div>

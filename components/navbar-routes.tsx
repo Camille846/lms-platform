@@ -36,10 +36,7 @@ export const NavbarRoutes = () => {
                     </Button>
                 </Link>
             )}
-            <UserButton
-
-            />
-
+            <UserButton />
         </div>
     );
 };

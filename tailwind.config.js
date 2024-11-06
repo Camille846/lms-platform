@@ -20,8 +20,9 @@ module.exports = {
   		colors: {
 			  // add custom colors
 			SoulBlue: '#01406C',
-			SoulLightBlue: '#A4B2BC',
-			SoulOrange: '#FFA500',
+			SoulLightBlue: '#D1E3EE',
+			SoulOrange: '#F45A2B',
+			SoulYellow: '#FFA500',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
