@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider afterSignOutUrl={"/sign-in"} signInFallbackRedirectUrl={"/"}>
+    <ClerkProvider afterSignOutUrl={"/sign-in"} signInFallbackRedirectUrl={"/"} dynamic>
     <html lang="en">
       <body className={poppins.className}>
       <ToasterProvider />
