@@ -5,8 +5,6 @@ import {LayoutDashboard} from "lucide-react";
 import {IconBadge} from "@/components/icon-badge";
 import {TitleForm} from "./_components/title-form";
 import {DescriptionForm} from "./_components/description-form";
-import {Description} from "@radix-ui/react-dialog";
-import Image from "next/image";
 import ImageForm from "./_components/image-form";
 import CategoryForm from "./_components/category-form";
 import {FaListCheck} from "react-icons/fa6";
@@ -23,7 +21,6 @@ const TrainingIdPage = async ({
         return redirect('/');
     }
 
-    console.log(userId)
     const training = await db.training.findUnique({
         where: {
             id: params.trainingId,
@@ -58,14 +55,14 @@ const TrainingIdPage = async ({
     const completionText = `(${completedFields} of ${totalFields})`;
 
     return (
-        <div className={'p-6'}>
+        <div className={'p-6 w-[80vw]'}>
             <div className="flex justify-between items-center">
                 <div className="flex flex-col gap-y-2">
                     <h1 className="text-2xl font-medium">Vamos criar um novo Training!</h1>
                     <span className="text-gray-500 text-sm">Complete todos os campos {completionText}</span>
                 </div>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 mt-12 gap-6 w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-2 mt-12 gap-6 mx-12">
                 <div>
                     <div className="flex items-center gap-x-2">
                         <IconBadge icon={LayoutDashboard} size="sm"/>
@@ -88,7 +85,7 @@ const TrainingIdPage = async ({
                             value: category.id,
                         }))}/>
                 </div>
-                <div className="space-y-6">
+                <div className="space-y-4">
                     <div className="flex items-center gap-x-2 rounded-2xl">
                         <div className="text-lg flex gap-2 items-center">
                             <span className="bg-[#D1E3EE] p-2 rounded-2xl">

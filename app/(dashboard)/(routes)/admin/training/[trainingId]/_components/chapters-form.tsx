@@ -18,10 +18,10 @@ import { Input } from "@/components/ui/input";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { db } from '@/lib/db';
 import { RiVideoAddFill } from "react-icons/ri";
 import { BiLoader } from "react-icons/bi";
 import {Training, Chapter} from "@prisma/client";
+import ChaptersList from "./chapters-list";
 
 interface ChapterFormProps {
     initialData: Training & { chapters: Chapter[] };
@@ -62,18 +62,19 @@ const ChaptersForm = ({ initialData, trainingId }: ChapterFormProps) => {
     const onEdit = (id: string) => {
         router.push(`/admin/training/${trainingId}/chapters/${id}`);
     };
+
     const onReorder = async (updateData: { id: string; position: number }[]) => {
         try {
             setIsUpdating(true);
-
+            // console.log("Reorder Data:", updateData);
             await axios.put(`/api/training/${trainingId}/chapters/reorder`, {
                 list: updateData,
             });
-
-            toast.success("Chapters reordered");
+            toast.success("Módulos reordenados");
             router.refresh();
-        } catch {
-            toast.error("Something went wrong");
+        } catch (error) {
+            // console.error("Reorder Error:", error);
+            toast.error("Falha ao reordenar módulos");
         } finally {
             setIsUpdating(false);
         }
@@ -90,15 +91,15 @@ const ChaptersForm = ({ initialData, trainingId }: ChapterFormProps) => {
         <span>
           Módulo <span className="text-red-500">*</span>
         </span>
-                <Button variant={"ghost"} onClick={toggleCreating}>
+                <Button variant={"ghost"} onClick={toggleCreating} className="text-SoulOrange hover:text-SoulYellow">
                     {isCreating ? (
                         <>
-                            <MdOutlineCancel className="h-4 w-4 mr-2" />
+                            <MdOutlineCancel className="h-4 w-4" />
                             Cancelar
                         </>
                     ) : (
                         <>
-                            <RiVideoAddFill className="h-4 w-4 mr-2" />
+                            <RiVideoAddFill className="h-4 w-4" />
                             Adicionar
                         </>
                     )}
@@ -144,7 +145,15 @@ const ChaptersForm = ({ initialData, trainingId }: ChapterFormProps) => {
                         "text-muted-foreground italic bg-accent p-4 md:p-6 text-center rounded-lg cursor-not-allowed"
                     )}
                 >
-                    {!initialData.chapters.length && "Nenhum módulo criado"}
+                    {!initialData.chapters.length ? (
+                        <p>Nenhum módulo criado</p>
+                    ) : (
+                        <ChaptersList
+                            onEdit={onEdit}
+                            onReorder={onReorder}
+                            items={initialData.chapters || []}
+                        />
+                    )}
                 </div>
             )}
 
